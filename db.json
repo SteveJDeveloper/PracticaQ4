@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "email": "steve@mail.com",
+      "password": "$2a$10$uXBz4dzDmPqV56pojyGENOgU0g/dJuQybIO/HIErQu1SHKtu71L7S",
+      "id": 1
+    }
+  ],
   "posts": [
     {
       "id": 1,
