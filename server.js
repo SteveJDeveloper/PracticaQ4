@@ -5,15 +5,18 @@ const path = require('path')
 const router = jsonServer.router(path.join(__dirname, 'db.json'))
 const middlewares = jsonServer.defaults()
 
-const validatorsPost = ['author', 'title']
+
+const validatorsPokemon = ["name","image","attack","defense","hp","type"]
+
+const validatorsUser = ["email","password","role","firstName","lastName"]
 
 server.use(middlewares)
 
 server.use(jsonServer.bodyParser)
 
-server.post('/posts', (req, res, next) => {
+server.post('/register', (req, res, next) =>{
     let menssage = ""
-    validatorsPost.forEach(validator => {
+    validatorsUser.forEach(validator => {
         if (!req.body.hasOwnProperty(validator)) {
             menssage += " " + validator
         }
@@ -25,18 +28,38 @@ server.post('/posts', (req, res, next) => {
             error: "Falta propiedades:" + menssage
         })
     }
+})
 
+server.post('/pokemons', (req, res, next) => {
+    
+    console.log(this.idAdministrator(req.body.authorId))
+
+    let menssage = ""
+    validatorsPokemon.forEach(validator => {
+        if (!req.body.hasOwnProperty(validator)) {
+            menssage += " " + validator
+        }
+    });
+    if (menssage === "") {
+        next()
+    } else {
+        res.status(206).jsonp({
+            error: "Falta propiedades:" + menssage
+        })
+    }
 })
 
 const rules = auth.rewriter({
-    // Permission rules
-    posts: 660,
+    pokemons: 660,
+    types: 444,
+    roles: 444
 })
 
 server.use(rules)
 server.db = router.db
 server.use(auth)
 server.use(router)
+
 server.listen(3000, () => {
     console.log('JSON Server is running')
 })
