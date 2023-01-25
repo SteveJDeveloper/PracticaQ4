@@ -32,8 +32,6 @@ server.post('/register', (req, res, next) =>{
 
 server.post('/pokemons', (req, res, next) => {
     
-    console.log(this.idAdministrator(req.body.authorId))
-
     let menssage = ""
     validatorsPokemon.forEach(validator => {
         if (!req.body.hasOwnProperty(validator)) {
